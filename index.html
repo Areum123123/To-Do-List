@@ -155,14 +155,11 @@
 
     // 체크기능
     $(document).ready(function () {
-      // 각 체크박스의 변경을 감지하여 텍스트에 취소선을 추가합니다.
+
       $(document).on('change', '.form-check-input', function () {
-        // 체크박스가 체크되었는지 확인합니다.
-        if ($(this).is(':checked')) {
-          // 체크되었다면 해당 요소에 completed 클래스를 추가하여 취소선을 표시합니다.
+        if ($(this).is(':checked'))          
           $(this).closest('.list-group-item').addClass('completed');
-        } else {
-          // 체크가 해제되었다면 completed 클래스를 제거하여 취소선을 제거합니다.
+        } else {         
           $(this).closest('.list-group-item').removeClass('completed');
         }
       });
@@ -170,7 +167,7 @@
 
 
     $(document).ready(function () {
-      // 현재 날짜 가져오기. 구글검색&gpt
+      // 현재 날짜 가져오기. 
       let currentDate = new Date().toLocaleDateString("en-us", {
         weekday: "long",
         year: "numeric",
@@ -185,12 +182,12 @@
 
     $(document).on("click", ".deletebutton", async function (e) {
       e.preventDefault();
-      const id = $(this).closest('.list-group-item').data('doc-id'); // 해당 문서의 ID 가져오기
+      const id = $(this).closest('.list-group-item').data('doc-id'); 
       if (confirm("정말 삭제 하시겠습니까?")) {
         try {
-          await deleteDoc(doc(db, 'todolist', id)); // 문서 삭제 시도
+          await deleteDoc(doc(db, 'todolist', id)); 
           alert('삭제완료!');
-          $(this).closest('.list-group-item').remove(); // UI에서 삭제된 항목 제거
+          $(this).closest('.list-group-item').remove(); 
         } catch (error) {
           alert(error);
         }
