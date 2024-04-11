@@ -86,7 +86,9 @@
 
     // Firebase 구성 정보 설정
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
- 
+    const firebaseConfig = {
+     
+    };
 
     // Firebase 인스턴스 초기화
     const app = initializeApp(firebaseConfig);
@@ -114,9 +116,10 @@
     });
 
     // 현재기온 가져오는 기능
-    let url = "https://spartacodingclub.shop/sparta_api/weather/seoul";
+    let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
     fetch(url).then(res => res.json()).then(data => {
       let temp = data['temp'];
+
       $('#todayTemp').text(temp);
     })
 
@@ -152,17 +155,22 @@
 
     // 체크기능
     $(document).ready(function () {
+      // 각 체크박스의 변경을 감지하여 텍스트에 취소선을 추가합니다.
       $(document).on('change', '.form-check-input', function () {
+        // 체크박스가 체크되었는지 확인합니다.
         if ($(this).is(':checked')) {
+          // 체크되었다면 해당 요소에 completed 클래스를 추가하여 취소선을 표시합니다.
           $(this).closest('.list-group-item').addClass('completed');
         } else {
+          // 체크가 해제되었다면 completed 클래스를 제거하여 취소선을 제거합니다.
           $(this).closest('.list-group-item').removeClass('completed');
         }
       });
     });
 
-    // 현재 날짜 가져오기. 
+
     $(document).ready(function () {
+      // 현재 날짜 가져오기. 구글검색&gpt
       let currentDate = new Date().toLocaleDateString("en-us", {
         weekday: "long",
         year: "numeric",
@@ -177,12 +185,12 @@
 
     $(document).on("click", ".deletebutton", async function (e) {
       e.preventDefault();
-      const id = $(this).closest('.list-group-item').data('doc-id');
+      const id = $(this).closest('.list-group-item').data('doc-id'); // 해당 문서의 ID 가져오기
       if (confirm("정말 삭제 하시겠습니까?")) {
         try {
-          await deleteDoc(doc(db, 'todolist', id));
+          await deleteDoc(doc(db, 'todolist', id)); // 문서 삭제 시도
           alert('삭제완료!');
-          $(this).closest('.list-group-item').remove();
+          $(this).closest('.list-group-item').remove(); // UI에서 삭제된 항목 제거
         } catch (error) {
           alert(error);
         }
@@ -212,7 +220,7 @@
           <li><a href="#" class="nav-link px-2 text-secondary">연기</a></li>
           <li><a href="#" class="nav-link px-2 text-secondary">취소</a></li>
           <li><a href="#" class="nav-link px-2 text-secondary">완료</a></li>
-          <li><a href="#" class="nav-link px-2 text-secondary">현재 기온: <span id="todayTemp">21</span>도</a></li>
+          <li><a href="#" class="nav-link px-2 text-secondary">현재 기온: <span id="todayTemp"></span>도</a></li>
         </ul>
 
 
@@ -269,6 +277,47 @@
 
   <div class="myList">
     <div class="list-group" id="list">
+      <a href="#" class="list-group-item list-group-item-action" data-doc-id="${doc.id}">
+
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">todolist 과제</h5>
+          <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
+        </div>
+        <p class="mb-1">스파르타 과제 제출 / 목요일 까지</p>
+        <div class="d-flex w-100 justify-content-between">
+          <small>⭐⭐⭐⭐⭐</small>
+          <button type="button" class="deletebutton" onclick="deleteRow(event);">delete</button>
+        </div>
+
+
+      </a>
+      <a href="#" class="list-group-item list-group-item-action" data-doc-id="${doc.id}">
+
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">모닝루틴</h5>
+          <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
+        </div>
+        <p class="mb-1">시각화, 명언 , 확언, 독서, 운동</p>
+        <div class="d-flex w-100 justify-content-between">
+          <small>⭐⭐⭐⭐⭐</small>
+          <button type="button" class="deletebutton" onclick="deleteRow(event);">delete</button>
+        </div>
+
+      </a>
+      <a href="#" class="list-group-item list-group-item-action" data-doc-id="${doc.id}">
+
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">울 단이 산책</h5>
+          <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
+        </div>
+        <p class="mb-1">너무 덥지 않을 때 다녀오기</p>
+        <div class="d-flex w-100 justify-content-between">
+          <small>⭐⭐⭐⭐⭐</small>
+          <button type="button" class="deletebutton" onclick="deleteRow(event);">delete</button>
+        </div>
+
+
+      </a>
 
     </div>
   </div>
